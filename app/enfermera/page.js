@@ -1,6 +1,6 @@
-export default function enfermera (){
-    <>
-    return
-    (<h1>Enfermera</h1>)
-    </>
-}
+"use client";
+
+const EnfermerasList = () => {
+};
+
+
