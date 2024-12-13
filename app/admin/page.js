@@ -11,11 +11,12 @@ export default function AdminPanel() {
   const [email, setEmail] = useState("");
   const [telefono, setTelefono] = useState("");
   const [idGenerada, setIdGenerada] = useState("");
+  const [horario, setHorario] = useState("");
   const [qrUrl, setQrUrl] = useState("");
   const [mensajeEscaneo, setMensajeEscaneo] = useState("");
 
   const registrarEnfermera = () => {
-    if (!nombre || !email || !telefono) {
+    if (!nombre || !email || !telefono || !horario ) {
       alert("Por favor, completa todos los campos.");
       return;
     }
@@ -27,6 +28,7 @@ export default function AdminPanel() {
       nombre,
       email,
       telefono,
+      horario,
       asistencias: {}, // Asistencias vacías inicialmente
     };
 
@@ -37,6 +39,7 @@ export default function AdminPanel() {
         setNombre("");
         setEmail("");
         setTelefono("");
+        setHorario("");
       })
       .catch((error) => {
         console.error("Error registrando enfermera:", error);
@@ -95,6 +98,15 @@ export default function AdminPanel() {
     };
   };
 
+  const descargarQR = () => {
+    const canvas = document.getElementById("qr-code");
+    const qrImage = canvas.toDataURL("image/png");
+    const link = document.createElement("a");
+    link.href = qrImage;
+    link.download = `${idGenerada}_QR.png`;
+    link.click();
+  };
+
   return (
     <div>
       <h1>Panel de Administración</h1>
@@ -126,6 +138,14 @@ export default function AdminPanel() {
             onChange={(e) => setTelefono(e.target.value)}
           />
         </div>
+        <div>
+          <label>horario:</label>
+          <input
+            type="text"
+            value={horario}
+            onChange={(e) => setHorario(e.target.value)}
+          />
+        </div>
         <button type="button" onClick={registrarEnfermera}>
           Registrar Enfermera
         </button>
@@ -142,8 +162,10 @@ export default function AdminPanel() {
             level={"H"}
             includeMargin={true}
           />
+          <button onClick={descargarQR}>Descargar QR</button>
         </div>
       )}
+      
 
       {/* Sección para escanear QR */}
       <h2>Registrar Asistencia</h2>
