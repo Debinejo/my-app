@@ -1,10 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { ref, get } from "firebase/database"; // Importa Firebase Realtime Database
 import { database } from "../firebase";
 
-export default function Enfermera() {
+function EnfermeraContent() {
   const searchParams = useSearchParams();
   const enfermeraId = searchParams.get("id"); // Obtener la ID de la URL
   const [enfermeraData, setEnfermeraData] = useState(null);
@@ -55,5 +55,13 @@ export default function Enfermera() {
           : <li>No hay registros de asistencia.</li>}
       </ul>
     </main>
+  );
+}
+
+export default function Enfermera() {
+  return (
+    <Suspense fallback={<div>Cargando los datos...</div>}>
+      <EnfermeraContent />
+    </Suspense>
   );
 }
