@@ -10,7 +10,7 @@ export default function RootLayout({ children }) {
       <body>
         <header>
           <nav>
-            <a href="/">Inicio</a>
+            <link href="/">Inicio</link>
           </nav>
         </header>
         <main>{children}</main>
