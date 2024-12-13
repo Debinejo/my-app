@@ -1,3 +1,4 @@
+import Link from 'next/link';
 // app/layout.js
 export const metadata = {
   title: 'Mi Aplicación',
@@ -10,7 +11,7 @@ export default function RootLayout({ children }) {
       <body>
         <header>
           <nav>
-            <link href="/">Inicio</link>
+            <Link href="/">Inicio</Link>
           </nav>
         </header>
         <main>{children}</main>
